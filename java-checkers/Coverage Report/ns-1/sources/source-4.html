@@ -1,0 +1,1046 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > CheckersGameLogic</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">edu.ser216.checkers.core</a>
+</div>
+
+<h1>Coverage Summary for Class: CheckersGameLogic (edu.ser216.checkers.core)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CheckersGameLogic</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    96.7%
+  </span>
+  <span class="absValue">
+    (29/30)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    90.9%
+  </span>
+  <span class="absValue">
+    (388/427)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package edu.ser216.checkers.core;
+&nbsp;
+&nbsp;import java.util.Scanner;
+&nbsp;
+&nbsp;/**
+&nbsp; * The class that handles the checkers game logic.
+&nbsp; *
+&nbsp; * @author samuelwilhite
+&nbsp; * @version 1.0
+&nbsp; */
+&nbsp;public class CheckersGameLogic implements CheckersGame {
+&nbsp;  private Scanner input;
+&nbsp;
+&nbsp;  /**
+&nbsp;   * returns the current state of the board.
+&nbsp;   *
+&nbsp;   * @return the current checkers board.
+&nbsp;   */
+&nbsp;  public char[][] getBoard() {
+<b class="fc">&nbsp;    return board;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  private char[][] board;
+&nbsp;  private Checker[] xpieces;
+&nbsp;  private Checker[] opieces;
+&nbsp;
+&nbsp;  public boolean isTurnPlayerX() {
+<b class="fc">&nbsp;    return isTurnPlayerX;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  private boolean isTurnPlayerX;
+&nbsp;  private boolean isFirstTurn;
+&nbsp;  private boolean isTwoMoves;
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Creates an object that handles the backend logic of the checkers game.
+&nbsp;   *
+&nbsp;   * @param scan serves as input for the backend.
+&nbsp;   */
+<b class="fc">&nbsp;  public CheckersGameLogic(Scanner scan) {</b>
+<b class="fc">&nbsp;    input = scan;</b>
+<b class="fc">&nbsp;    board = new char[][]{</b>
+&nbsp;            {&#39;_&#39;, &#39;o&#39;, &#39;_&#39;, &#39;o&#39;, &#39;_&#39;, &#39;o&#39;, &#39;_&#39;, &#39;o&#39;},
+&nbsp;            {&#39;o&#39;, &#39;_&#39;, &#39;o&#39;, &#39;_&#39;, &#39;o&#39;, &#39;_&#39;, &#39;o&#39;, &#39;_&#39;},
+&nbsp;            {&#39;_&#39;, &#39;o&#39;, &#39;_&#39;, &#39;o&#39;, &#39;_&#39;, &#39;o&#39;, &#39;_&#39;, &#39;o&#39;},
+&nbsp;            {&#39;_&#39;, &#39;_&#39;, &#39;_&#39;, &#39;_&#39;, &#39;_&#39;, &#39;_&#39;, &#39;_&#39;, &#39;_&#39;},
+&nbsp;            {&#39;_&#39;, &#39;_&#39;, &#39;_&#39;, &#39;_&#39;, &#39;_&#39;, &#39;_&#39;, &#39;_&#39;, &#39;_&#39;},
+&nbsp;            {&#39;x&#39;, &#39;_&#39;, &#39;x&#39;, &#39;_&#39;, &#39;x&#39;, &#39;_&#39;, &#39;x&#39;, &#39;_&#39;},
+&nbsp;            {&#39;_&#39;, &#39;x&#39;, &#39;_&#39;, &#39;x&#39;, &#39;_&#39;, &#39;x&#39;, &#39;_&#39;, &#39;x&#39;},
+&nbsp;            {&#39;x&#39;, &#39;_&#39;, &#39;x&#39;, &#39;_&#39;, &#39;x&#39;, &#39;_&#39;, &#39;x&#39;, &#39;_&#39;}
+&nbsp;    };
+<b class="fc">&nbsp;    xpieces = new Checker[12];</b>
+<b class="fc">&nbsp;    opieces = new Checker[12];</b>
+<b class="fc">&nbsp;    int xincrement = 0;</b>
+<b class="fc">&nbsp;    int oincrement = 0;</b>
+<b class="fc">&nbsp;    for (int i = 0; i &lt; board.length; i++) {</b>
+<b class="fc">&nbsp;      for (int g = 0; g &lt; board[0].length; g++) {</b>
+<b class="fc">&nbsp;        if (board[i][g] == &#39;x&#39;) {</b>
+&nbsp;          char gletter;
+<b class="fc">&nbsp;          switch (g) {</b>
+&nbsp;            case 0:
+<b class="fc">&nbsp;              gletter = &#39;a&#39;;</b>
+<b class="fc">&nbsp;              break;</b>
+&nbsp;            case 1:
+<b class="fc">&nbsp;              gletter = &#39;b&#39;;</b>
+<b class="fc">&nbsp;              break;</b>
+&nbsp;            case 2:
+<b class="fc">&nbsp;              gletter = &#39;c&#39;;</b>
+<b class="fc">&nbsp;              break;</b>
+&nbsp;            case 3:
+<b class="fc">&nbsp;              gletter = &#39;d&#39;;</b>
+<b class="fc">&nbsp;              break;</b>
+&nbsp;            case 4:
+<b class="fc">&nbsp;              gletter = &#39;e&#39;;</b>
+<b class="fc">&nbsp;              break;</b>
+&nbsp;            case 5:
+<b class="fc">&nbsp;              gletter = &#39;f&#39;;</b>
+<b class="fc">&nbsp;              break;</b>
+&nbsp;            case 6:
+<b class="fc">&nbsp;              gletter = &#39;g&#39;;</b>
+<b class="fc">&nbsp;              break;</b>
+&nbsp;            case 7:
+<b class="fc">&nbsp;              gletter = &#39;h&#39;;</b>
+<b class="fc">&nbsp;              break;</b>
+&nbsp;            default:
+<b class="nc">&nbsp;              gletter = &#39;?&#39;;</b>
+&nbsp;              break;
+&nbsp;          }
+<b class="fc">&nbsp;          xpieces[xincrement] = new Checker((String.valueOf(8 - i)) + gletter, &#39;x&#39;);</b>
+<b class="fc">&nbsp;          xincrement++;</b>
+<b class="fc">&nbsp;        } else if (board[i][g] == &#39;o&#39;) {</b>
+&nbsp;          char gletter;
+<b class="fc">&nbsp;          switch (g) {</b>
+&nbsp;            case 0:
+<b class="fc">&nbsp;              gletter = &#39;a&#39;;</b>
+<b class="fc">&nbsp;              break;</b>
+&nbsp;            case 1:
+<b class="fc">&nbsp;              gletter = &#39;b&#39;;</b>
+<b class="fc">&nbsp;              break;</b>
+&nbsp;            case 2:
+<b class="fc">&nbsp;              gletter = &#39;c&#39;;</b>
+<b class="fc">&nbsp;              break;</b>
+&nbsp;            case 3:
+<b class="fc">&nbsp;              gletter = &#39;d&#39;;</b>
+<b class="fc">&nbsp;              break;</b>
+&nbsp;            case 4:
+<b class="fc">&nbsp;              gletter = &#39;e&#39;;</b>
+<b class="fc">&nbsp;              break;</b>
+&nbsp;            case 5:
+<b class="fc">&nbsp;              gletter = &#39;f&#39;;</b>
+<b class="fc">&nbsp;              break;</b>
+&nbsp;            case 6:
+<b class="fc">&nbsp;              gletter = &#39;g&#39;;</b>
+<b class="fc">&nbsp;              break;</b>
+&nbsp;            case 7:
+<b class="fc">&nbsp;              gletter = &#39;h&#39;;</b>
+<b class="fc">&nbsp;              break;</b>
+&nbsp;            default:
+<b class="nc">&nbsp;              gletter = &#39;?&#39;;</b>
+&nbsp;              break;
+&nbsp;          }
+<b class="fc">&nbsp;          opieces[oincrement] = new Checker((String.valueOf(8 - i)) + gletter, &#39;o&#39;);</b>
+<b class="fc">&nbsp;          oincrement++;</b>
+&nbsp;        }
+&nbsp;      }
+&nbsp;    }
+<b class="fc">&nbsp;    isTurnPlayerX = true;</b>
+<b class="fc">&nbsp;    isFirstTurn = true;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  /** Generates a checkers game without the scanner.
+&nbsp;   *
+&nbsp;   */
+<b class="fc">&nbsp;  public CheckersGameLogic() {</b>
+<b class="fc">&nbsp;    board = new char[][]{</b>
+&nbsp;            {&#39;_&#39;, &#39;o&#39;, &#39;_&#39;, &#39;o&#39;, &#39;_&#39;, &#39;o&#39;, &#39;_&#39;, &#39;o&#39;},
+&nbsp;            {&#39;o&#39;, &#39;_&#39;, &#39;o&#39;, &#39;_&#39;, &#39;o&#39;, &#39;_&#39;, &#39;o&#39;, &#39;_&#39;},
+&nbsp;            {&#39;_&#39;, &#39;o&#39;, &#39;_&#39;, &#39;o&#39;, &#39;_&#39;, &#39;o&#39;, &#39;_&#39;, &#39;o&#39;},
+&nbsp;            {&#39;_&#39;, &#39;_&#39;, &#39;_&#39;, &#39;_&#39;, &#39;_&#39;, &#39;_&#39;, &#39;_&#39;, &#39;_&#39;},
+&nbsp;            {&#39;_&#39;, &#39;_&#39;, &#39;_&#39;, &#39;_&#39;, &#39;_&#39;, &#39;_&#39;, &#39;_&#39;, &#39;_&#39;},
+&nbsp;            {&#39;x&#39;, &#39;_&#39;, &#39;x&#39;, &#39;_&#39;, &#39;x&#39;, &#39;_&#39;, &#39;x&#39;, &#39;_&#39;},
+&nbsp;            {&#39;_&#39;, &#39;x&#39;, &#39;_&#39;, &#39;x&#39;, &#39;_&#39;, &#39;x&#39;, &#39;_&#39;, &#39;x&#39;},
+&nbsp;            {&#39;x&#39;, &#39;_&#39;, &#39;x&#39;, &#39;_&#39;, &#39;x&#39;, &#39;_&#39;, &#39;x&#39;, &#39;_&#39;}
+&nbsp;    };
+<b class="fc">&nbsp;    xpieces = new Checker[12];</b>
+<b class="fc">&nbsp;    opieces = new Checker[12];</b>
+<b class="fc">&nbsp;    int xincrement = 0;</b>
+<b class="fc">&nbsp;    int oincrement = 0;</b>
+<b class="fc">&nbsp;    for (int i = 0; i &lt; board.length; i++) {</b>
+<b class="fc">&nbsp;      for (int g = 0; g &lt; board[0].length; g++) {</b>
+<b class="fc">&nbsp;        if (board[i][g] == &#39;x&#39;) {</b>
+&nbsp;          char gletter;
+<b class="fc">&nbsp;          switch (g) {</b>
+&nbsp;            case 0:
+<b class="fc">&nbsp;              gletter = &#39;a&#39;;</b>
+<b class="fc">&nbsp;              break;</b>
+&nbsp;            case 1:
+<b class="fc">&nbsp;              gletter = &#39;b&#39;;</b>
+<b class="fc">&nbsp;              break;</b>
+&nbsp;            case 2:
+<b class="fc">&nbsp;              gletter = &#39;c&#39;;</b>
+<b class="fc">&nbsp;              break;</b>
+&nbsp;            case 3:
+<b class="fc">&nbsp;              gletter = &#39;d&#39;;</b>
+<b class="fc">&nbsp;              break;</b>
+&nbsp;            case 4:
+<b class="fc">&nbsp;              gletter = &#39;e&#39;;</b>
+<b class="fc">&nbsp;              break;</b>
+&nbsp;            case 5:
+<b class="fc">&nbsp;              gletter = &#39;f&#39;;</b>
+<b class="fc">&nbsp;              break;</b>
+&nbsp;            case 6:
+<b class="fc">&nbsp;              gletter = &#39;g&#39;;</b>
+<b class="fc">&nbsp;              break;</b>
+&nbsp;            case 7:
+<b class="fc">&nbsp;              gletter = &#39;h&#39;;</b>
+<b class="fc">&nbsp;              break;</b>
+&nbsp;            default:
+<b class="nc">&nbsp;              gletter = &#39;?&#39;;</b>
+&nbsp;              break;
+&nbsp;          }
+<b class="fc">&nbsp;          xpieces[xincrement] = new Checker((String.valueOf(8 - i)) + gletter, &#39;x&#39;);</b>
+<b class="fc">&nbsp;          xincrement++;</b>
+<b class="fc">&nbsp;        } else if (board[i][g] == &#39;o&#39;) {</b>
+&nbsp;          char gletter;
+<b class="fc">&nbsp;          switch (g) {</b>
+&nbsp;            case 0:
+<b class="fc">&nbsp;              gletter = &#39;a&#39;;</b>
+<b class="fc">&nbsp;              break;</b>
+&nbsp;            case 1:
+<b class="fc">&nbsp;              gletter = &#39;b&#39;;</b>
+<b class="fc">&nbsp;              break;</b>
+&nbsp;            case 2:
+<b class="fc">&nbsp;              gletter = &#39;c&#39;;</b>
+<b class="fc">&nbsp;              break;</b>
+&nbsp;            case 3:
+<b class="fc">&nbsp;              gletter = &#39;d&#39;;</b>
+<b class="fc">&nbsp;              break;</b>
+&nbsp;            case 4:
+<b class="fc">&nbsp;              gletter = &#39;e&#39;;</b>
+<b class="fc">&nbsp;              break;</b>
+&nbsp;            case 5:
+<b class="fc">&nbsp;              gletter = &#39;f&#39;;</b>
+<b class="fc">&nbsp;              break;</b>
+&nbsp;            case 6:
+<b class="fc">&nbsp;              gletter = &#39;g&#39;;</b>
+<b class="fc">&nbsp;              break;</b>
+&nbsp;            case 7:
+<b class="fc">&nbsp;              gletter = &#39;h&#39;;</b>
+<b class="fc">&nbsp;              break;</b>
+&nbsp;            default:
+<b class="nc">&nbsp;              gletter = &#39;?&#39;;</b>
+&nbsp;              break;
+&nbsp;          }
+<b class="fc">&nbsp;          opieces[oincrement] = new Checker((String.valueOf(8 - i)) + gletter, &#39;o&#39;);</b>
+<b class="fc">&nbsp;          oincrement++;</b>
+&nbsp;        }
+&nbsp;      }
+&nbsp;    }
+<b class="fc">&nbsp;    isTurnPlayerX = true;</b>
+<b class="fc">&nbsp;    isFirstTurn = true;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Returns the square at a specific location on the game board.
+&nbsp;   *
+&nbsp;   * &lt;p&gt;For example, given the following board:
+&nbsp;   * 8|_|o|_|o|_|o|_|o|
+&nbsp;   * 7|o|_|o|_|o|_|o|_|
+&nbsp;   * 6|_|o|_|o|_|o|_|o|
+&nbsp;   * 5|_|_|_|_|_|_|_|_|
+&nbsp;   * 4|_|_|_|_|_|_|_|_|
+&nbsp;   * 3|x|_|x|_|x|_|x|_|
+&nbsp;   * 2|_|x|_|x|_|x|_|x|
+&nbsp;   * 1|x|_|x|_|x|_|x|_|
+&nbsp;   * a b c d e f g h
+&nbsp;   * getSquare(0,0) would return &#39;x&#39;.
+&nbsp;   *
+&nbsp;   * @param row    Row.
+&nbsp;   * @param column Column.
+&nbsp;   * @return Contents of game board at position.
+&nbsp;   */
+&nbsp;  @Override
+&nbsp;  public char getSquare(int row, int column) {
+<b class="fc">&nbsp;    return board[7 - row][column];</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Sets the contents (&#39;x&#39;, &#39;o&#39;, or &#39;_&#39;) of the game board.
+&nbsp;   *
+&nbsp;   * @param row     Row.
+&nbsp;   * @param column  Column.
+&nbsp;   * @param content Contents.
+&nbsp;   */
+&nbsp;  @Override
+&nbsp;  public void setSquare(int row, int column, char content) {
+<b class="fc">&nbsp;    int arrayColumn = column;</b>
+<b class="fc">&nbsp;    int arrayRow = 7 - row;</b>
+<b class="fc">&nbsp;    if (withinCoordinateBounds(arrayColumn) &amp;&amp; withinCoordinateBounds(arrayRow)) {</b>
+<b class="fc">&nbsp;      char boardColumn = convertColumn(arrayColumn);</b>
+<b class="fc">&nbsp;      char boardRow = convertRow(arrayRow);</b>
+<b class="fc">&nbsp;      String boardPos = String.valueOf(boardRow) + boardColumn;</b>
+<b class="fc">&nbsp;      if (content == &#39;_&#39;) { //if a piece is trying to be removed</b>
+&nbsp;        //check if the former space was an &#39;x&#39; or &#39;o&#39;, then delete the corresponding piece.
+<b class="fc">&nbsp;        if (getProperSquare(arrayRow, arrayColumn) == &#39;x&#39;) {</b>
+<b class="fc">&nbsp;          removePiece(boardPos, &#39;x&#39;);</b>
+<b class="fc">&nbsp;          board[arrayRow][arrayColumn] = content;</b>
+<b class="fc">&nbsp;        } else if (getProperSquare(arrayRow, arrayColumn) == &#39;o&#39;) {</b>
+<b class="fc">&nbsp;          removePiece(boardPos, &#39;o&#39;);</b>
+<b class="fc">&nbsp;          board[arrayRow][arrayColumn] = content;</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;          board[arrayRow][arrayColumn] = content;</b>
+&nbsp;        }
+<b class="fc">&nbsp;      } else if (content == &#39;x&#39;) { //else if an x piece is trying to be added</b>
+&nbsp;        //check if the former space was an &#39;_&#39; or &#39;o&#39;. if &#39;o&#39;, delete before adding.
+<b class="fc">&nbsp;        if (getProperSquare(arrayRow, arrayColumn) == &#39;_&#39;) {</b>
+<b class="fc">&nbsp;          addPiece(boardPos, &#39;x&#39;);</b>
+<b class="fc">&nbsp;          board[arrayRow][arrayColumn] = content;</b>
+<b class="fc">&nbsp;        } else if (getProperSquare(arrayRow, arrayColumn) == &#39;o&#39;) {</b>
+<b class="fc">&nbsp;          removePiece(boardPos, &#39;o&#39;);</b>
+<b class="fc">&nbsp;          addPiece(boardPos, &#39;x&#39;);</b>
+<b class="fc">&nbsp;          board[arrayRow][arrayColumn] = content;</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;          board[arrayRow][arrayColumn] = content;</b>
+&nbsp;        }
+<b class="fc">&nbsp;      } else if (content == &#39;o&#39;) { //else if an o piece is trying to be added</b>
+&nbsp;        //check if the former space was an &#39;_&#39; or &#39;x&#39;. if &#39;x&#39;, delete before adding.
+<b class="fc">&nbsp;        if (getProperSquare(arrayRow, arrayColumn) == &#39;_&#39;) {</b>
+<b class="fc">&nbsp;          addPiece(boardPos, &#39;o&#39;);</b>
+<b class="fc">&nbsp;          board[arrayRow][arrayColumn] = content;</b>
+<b class="fc">&nbsp;        } else if (getProperSquare(arrayRow, arrayColumn) == &#39;x&#39;) {</b>
+<b class="fc">&nbsp;          removePiece(boardPos, &#39;x&#39;);</b>
+<b class="fc">&nbsp;          addPiece(boardPos, &#39;o&#39;);</b>
+<b class="fc">&nbsp;          board[arrayRow][arrayColumn] = content;</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;          board[arrayRow][arrayColumn] = content;</b>
+&nbsp;        }
+&nbsp;      }
+&nbsp;    }
+&nbsp;  }
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Alternative param function to add a piece.
+&nbsp;   * adds a checker piece to its corresponding type array.
+&nbsp;   *
+&nbsp;   * @param piecePos position of the piece to be added.
+&nbsp;   * @param type     the piece to be added to the array.
+&nbsp;   */
+&nbsp;  private void addPiece(String piecePos, char type) {
+<b class="fc">&nbsp;    Checker piece = new Checker(piecePos, type);</b>
+<b class="fc">&nbsp;    addPiece(piece);</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  /**
+&nbsp;   * adds a checker piece to its corresponding type array.
+&nbsp;   *
+&nbsp;   * @param piece the piece to be added to the piece array.
+&nbsp;   */
+&nbsp;  private void addPiece(Checker piece) {
+&nbsp;    //determines array to use based on piece type
+&nbsp;    int newLength;
+&nbsp;    Checker[] oldpieces;
+<b class="fc">&nbsp;    if (piece.pieceType() == &#39;x&#39;) {</b>
+<b class="fc">&nbsp;      newLength = xpieces.length + 1;</b>
+<b class="fc">&nbsp;      oldpieces = xpieces;</b>
+&nbsp;    } else {
+<b class="fc">&nbsp;      newLength = opieces.length + 1;</b>
+<b class="fc">&nbsp;      oldpieces = opieces;</b>
+&nbsp;    }
+<b class="fc">&nbsp;    Checker[] newpieces = new Checker[newLength];</b>
+<b class="fc">&nbsp;    int incementer = 0;</b>
+<b class="fc">&nbsp;    for (Checker oldpiece : oldpieces) {</b>
+<b class="fc">&nbsp;      newpieces[incementer] = oldpiece;</b>
+<b class="fc">&nbsp;      incementer++;</b>
+&nbsp;    }
+<b class="fc">&nbsp;    newpieces[incementer] = piece;</b>
+<b class="fc">&nbsp;    if (piece.pieceType() == &#39;x&#39;) {</b>
+<b class="fc">&nbsp;      xpieces = newpieces;</b>
+&nbsp;    } else {
+<b class="fc">&nbsp;      opieces = newpieces;</b>
+&nbsp;    }
+&nbsp;  }
+&nbsp;
+&nbsp;  private void removePiece(String piecePos, char type) {
+<b class="fc">&nbsp;    Checker piece = new Checker(piecePos, type);</b>
+<b class="fc">&nbsp;    removePiece(piece);</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  private void removePiece(Checker piece) {
+&nbsp;    //determines array to use based on piece type
+&nbsp;    int newLength;
+&nbsp;    Checker[] oldpieces;
+<b class="fc">&nbsp;    if (piece.pieceType() == &#39;x&#39;) {</b>
+<b class="fc">&nbsp;      newLength = xpieces.length - 1;</b>
+<b class="fc">&nbsp;      oldpieces = xpieces;</b>
+&nbsp;    } else {
+<b class="fc">&nbsp;      newLength = opieces.length - 1;</b>
+<b class="fc">&nbsp;      oldpieces = opieces;</b>
+&nbsp;    }
+<b class="fc">&nbsp;    Checker[] newpieces = new Checker[newLength];</b>
+<b class="fc">&nbsp;    int incementer = 0;</b>
+<b class="fc">&nbsp;    for (Checker oldpiece : oldpieces) {</b>
+<b class="fc">&nbsp;      if (!(oldpiece.getStringPos().equals(piece.getStringPos()))) {</b>
+<b class="fc">&nbsp;        newpieces[incementer] = oldpiece;</b>
+<b class="fc">&nbsp;        incementer++;</b>
+&nbsp;      }
+&nbsp;    }
+<b class="fc">&nbsp;    if (piece.pieceType() == &#39;x&#39;) {</b>
+<b class="fc">&nbsp;      xpieces = newpieces;</b>
+&nbsp;    } else {
+<b class="fc">&nbsp;      opieces = newpieces;</b>
+&nbsp;    }
+&nbsp;  }
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Returns the square at a specific location on the game board. Used internally.
+&nbsp;   *
+&nbsp;   * &lt;p&gt;For example, given the following board:
+&nbsp;   * 8|_|o|_|o|_|o|_|o|
+&nbsp;   * 7|o|_|o|_|o|_|o|_|
+&nbsp;   * 6|_|o|_|o|_|o|_|o|
+&nbsp;   * 5|_|_|_|_|_|_|_|_|
+&nbsp;   * 4|_|_|_|_|_|_|_|_|
+&nbsp;   * 3|x|_|x|_|x|_|x|_|
+&nbsp;   * 2|_|x|_|x|_|x|_|x|
+&nbsp;   * 1|x|_|x|_|x|_|x|_|
+&nbsp;   * a b c d e f g h
+&nbsp;   * getSquare(0,0) would return &#39;x&#39;.
+&nbsp;   *
+&nbsp;   * @param row    Row.
+&nbsp;   * @param column Column.
+&nbsp;   * @return Contents of game board at position.
+&nbsp;   */
+&nbsp;  private char getProperSquare(int row, int column) {
+<b class="fc">&nbsp;    return board[row][column];</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Sets the contents (&#39;x&#39;, &#39;o&#39;, or &#39;_&#39;) of the game board. Used internally.
+&nbsp;   *
+&nbsp;   * @param row     Row.
+&nbsp;   * @param column  Column.
+&nbsp;   * @param content Contents.
+&nbsp;   */
+&nbsp;  public void setProperSquare(int row, int column, char content) {
+<b class="fc">&nbsp;    board[row][column] = content;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Returns &#39;x&#39; if player X  has won, &#39;o&#39; if player O has won, and &#39;_&#39; otherwise. May be called
+&nbsp;   * at any time.
+&nbsp;   *
+&nbsp;   * @return A character representing the winner.
+&nbsp;   */
+&nbsp;  @Override
+&nbsp;  public char getWinningPlayer() {
+&nbsp;    //check if any x pieces are still on the board
+<b class="fc">&nbsp;    int piecesAvailable = 0;</b>
+<b class="fc">&nbsp;    for (Checker piece : xpieces) {</b>
+<b class="fc">&nbsp;      if (piece.isEnabled() || !piece.getStringPos().equals(&quot;--&quot;)) {</b>
+<b class="fc">&nbsp;        piecesAvailable++;</b>
+&nbsp;      }
+&nbsp;    }
+<b class="fc">&nbsp;    if (piecesAvailable == 0) {</b>
+<b class="nc">&nbsp;      return &#39;o&#39;;</b>
+&nbsp;    }
+&nbsp;
+<b class="fc">&nbsp;    piecesAvailable = 0;</b>
+<b class="fc">&nbsp;    for (Checker piece : opieces) {</b>
+<b class="fc">&nbsp;      if (piece.isEnabled() || !piece.getStringPos().equals(&quot;--&quot;)) {</b>
+<b class="fc">&nbsp;        piecesAvailable++;</b>
+&nbsp;      }
+&nbsp;    }
+<b class="fc">&nbsp;    if (piecesAvailable == 0) {</b>
+<b class="nc">&nbsp;      return &#39;x&#39;;</b>
+&nbsp;    }
+&nbsp;
+<b class="fc">&nbsp;    piecesAvailable = 0;</b>
+<b class="fc">&nbsp;    for (Checker piece : xpieces) {</b>
+<b class="fc">&nbsp;      if (canMove(piece) &amp;&amp; (piece.isEnabled() || !piece.getStringPos().equals(&quot;--&quot;))) {</b>
+<b class="fc">&nbsp;        piecesAvailable++;</b>
+&nbsp;      }
+&nbsp;    }
+<b class="fc">&nbsp;    if (piecesAvailable == 0) {</b>
+<b class="nc">&nbsp;      return &#39;o&#39;;</b>
+&nbsp;    }
+&nbsp;
+<b class="fc">&nbsp;    piecesAvailable = 0;</b>
+<b class="fc">&nbsp;    for (Checker piece : opieces) {</b>
+<b class="fc">&nbsp;      if (canMove(piece) &amp;&amp; (piece.isEnabled() || !piece.getStringPos().equals(&quot;--&quot;))) {</b>
+<b class="fc">&nbsp;        piecesAvailable++;</b>
+&nbsp;      }
+&nbsp;    }
+<b class="fc">&nbsp;    if (piecesAvailable == 0) {</b>
+<b class="nc">&nbsp;      return &#39;x&#39;;</b>
+&nbsp;    }
+&nbsp;
+<b class="fc">&nbsp;    return &#39;_&#39;;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Indicates to the game that it is the next player&#39;s turn.
+&nbsp;   */
+&nbsp;  @Override
+&nbsp;  public void nextTurn() {
+<b class="fc">&nbsp;    isTurnPlayerX = !isTurnPlayerX;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Indicates to the game that a players turn should occur (i.e., read a move and act upon it).
+&nbsp;   * To read input from the keyboard, this method must make use of the Scanner object passed
+&nbsp;   * into the constructor of this CheckersGame. Valid inputs must look like &quot;3a-4b&quot;.
+&nbsp;   */
+&nbsp;  @Override
+&nbsp;  public void doTurn() {
+<b class="fc">&nbsp;    if (isFirstTurn) {</b>
+<b class="fc">&nbsp;      System.out.print(&quot;Begin Game. &quot;);</b>
+<b class="fc">&nbsp;      isFirstTurn = false;</b>
+&nbsp;    }
+<b class="fc">&nbsp;    boolean moveValidated = false;</b>
+<b class="fc">&nbsp;    while (!moveValidated) {</b>
+<b class="fc">&nbsp;      stringTurn();</b>
+<b class="fc">&nbsp;      String move = input.nextLine();</b>
+<b class="fc">&nbsp;      if (isValidMove(move)) {</b>
+<b class="fc">&nbsp;        makeTurn(move);</b>
+<b class="fc">&nbsp;        moveValidated = true;</b>
+&nbsp;      }
+<b class="fc">&nbsp;    }</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Performs the turn and moves pieces accordingly.
+&nbsp;   * Assumes move is valid.
+&nbsp;   *
+&nbsp;   * @param move the move to be made.
+&nbsp;   */
+&nbsp;  public void makeTurn(String move) {
+&nbsp;    //System.out.println(&quot;Valid move!&quot;);
+<b class="fc">&nbsp;    String originalPos = move.substring(0, 2);</b>
+<b class="fc">&nbsp;    String newPos = move.substring(3);</b>
+<b class="fc">&nbsp;    Checker mover = findPiece(originalPos, isTurnPlayerX);</b>
+<b class="fc">&nbsp;    char pieceChar = &#39;_&#39;;</b>
+<b class="fc">&nbsp;    if (isTurnPlayerX) {</b>
+<b class="fc">&nbsp;      pieceChar = &#39;x&#39;;</b>
+&nbsp;    } else {
+<b class="fc">&nbsp;      pieceChar = &#39;o&#39;;</b>
+&nbsp;    }
+<b class="fc">&nbsp;    if (!isTwoMoves) {</b>
+<b class="fc">&nbsp;      setProperSquare(convertRow(originalPos.charAt(0)),</b>
+<b class="fc">&nbsp;              convertColumn(originalPos.charAt(1)), &#39;_&#39;);</b>
+<b class="fc">&nbsp;      mover.move(newPos);</b>
+<b class="fc">&nbsp;      setProperSquare(convertRow(newPos.charAt(0)),</b>
+<b class="fc">&nbsp;              convertColumn(newPos.charAt(1)), pieceChar);</b>
+&nbsp;    } else {
+&nbsp;      //delete the piece&#39;s original position
+<b class="fc">&nbsp;      setProperSquare(convertRow(originalPos.charAt(0)),</b>
+<b class="fc">&nbsp;              convertColumn(originalPos.charAt(1)), &#39;_&#39;);</b>
+&nbsp;      //find the piece to be jumped over
+<b class="fc">&nbsp;      int enemyArrayColumn = (convertColumn(originalPos.charAt(1))</b>
+<b class="fc">&nbsp;              + convertColumn(newPos.charAt(1))) / 2;</b>
+<b class="fc">&nbsp;      int enemyArrayRow = (convertRow(originalPos.charAt(0))</b>
+<b class="fc">&nbsp;              + convertRow(newPos.charAt(0))) / 2;</b>
+<b class="fc">&nbsp;      char enemyColumn = convertColumn(enemyArrayColumn);</b>
+<b class="fc">&nbsp;      char enemyRow = convertRow(enemyArrayRow);</b>
+<b class="fc">&nbsp;      String enemyCoords = String.valueOf(enemyRow) + enemyColumn;</b>
+<b class="fc">&nbsp;      Checker jumpedEnemy = findPiece(enemyCoords, !isTurnPlayerX);</b>
+&nbsp;      //jump the opposite piece, remove it, move the piece
+<b class="fc">&nbsp;      if (jumpedEnemy != null) {</b>
+<b class="fc">&nbsp;        jumpedEnemy.jumped();</b>
+&nbsp;      }
+<b class="fc">&nbsp;      setProperSquare(enemyArrayRow, enemyArrayColumn, &#39;_&#39;);</b>
+<b class="fc">&nbsp;      mover.move(newPos);</b>
+<b class="fc">&nbsp;      setProperSquare(convertRow(newPos.charAt(0)), convertColumn(newPos.charAt(1)), pieceChar);</b>
+&nbsp;    }
+&nbsp;  }
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Determines if the move given is a valid move to be taken, based on positioning.
+&nbsp;   *
+&nbsp;   * @param move the move to be checked, in &quot;4a-5b&quot; form.
+&nbsp;   * @return If the move is valid.
+&nbsp;   */
+&nbsp;  public boolean isValidMove(String move) {
+<b class="fc">&nbsp;    boolean validMove = false;</b>
+&nbsp;    try {
+<b class="fc">&nbsp;      validMove = isValidInput(move);</b>
+<b class="nc">&nbsp;    } catch (Exception e) {</b>
+<b class="nc">&nbsp;      System.out.println(&quot;Invalid input.&quot;);</b>
+<b class="nc">&nbsp;      return false;</b>
+<b class="fc">&nbsp;    }</b>
+<b class="fc">&nbsp;    if (validMove) {</b>
+<b class="fc">&nbsp;      String originalPosition = move.substring(0, 2);</b>
+<b class="fc">&nbsp;      String newPosition = move.substring(3);</b>
+&nbsp;
+<b class="fc">&nbsp;      Checker pieceValidating = findPiece(originalPosition, isTurnPlayerX);</b>
+&nbsp;
+&nbsp;      //find the piece using the original position to prove it exists
+<b class="fc">&nbsp;      if (pieceValidating == null) {</b>
+<b class="fc">&nbsp;        return false;</b>
+&nbsp;      }
+&nbsp;
+&nbsp;      //ensures the piece is not moving more than 2 spaces, as it would not be a legal move
+<b class="fc">&nbsp;      if (Math.abs(convertRow(newPosition.charAt(0)) - convertRow(originalPosition.charAt(0))) &gt; 2</b>
+<b class="fc">&nbsp;              || Math.abs(convertColumn(newPosition.charAt(1))</b>
+<b class="fc">&nbsp;              - convertColumn(originalPosition.charAt(1))) &gt; 2) {</b>
+<b class="nc">&nbsp;        return false;</b>
+&nbsp;      }
+&nbsp;
+<b class="fc">&nbsp;      return canMove(originalPosition, newPosition);</b>
+&nbsp;    }
+<b class="fc">&nbsp;    return false;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Returns if the number is within bounds of the coordinate.
+&nbsp;   *
+&nbsp;   * @param number the number to be used
+&nbsp;   * @return if the number given is within coordinate bounds, and is a valid number
+&nbsp;   */
+&nbsp;  private boolean withinCoordinateBounds(int number) {
+<b class="fc">&nbsp;    return number &gt;= 0 &amp;&amp; number &lt;= 7;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Determines if the piece has an available move that it could make.
+&nbsp;   *
+&nbsp;   * @param piece The piece whose possible moves will be checked.
+&nbsp;   * @return Whether the given piece is able to be moved.
+&nbsp;   */
+&nbsp;  public boolean canMove(Checker piece) {
+<b class="fc">&nbsp;    int movements = 0;</b>
+<b class="fc">&nbsp;    int currentArrayRow = convertRow(piece.getStringPos().charAt(0));</b>
+<b class="fc">&nbsp;    int currentArrayColumn = convertColumn(piece.getStringPos().charAt(1));</b>
+&nbsp;    int nextArrayRow;
+&nbsp;    int nextArrayColumn;
+<b class="fc">&nbsp;    if (piece.pieceType() == &#39;x&#39;) {</b>
+<b class="fc">&nbsp;      if (currentArrayRow == 0) {</b>
+<b class="nc">&nbsp;        return false;</b>
+&nbsp;      }
+<b class="fc">&nbsp;      nextArrayRow = currentArrayRow - 1;</b>
+<b class="fc">&nbsp;      if (withinCoordinateBounds(nextArrayRow)) {</b>
+<b class="fc">&nbsp;        nextArrayColumn = currentArrayColumn + 1;</b>
+<b class="fc">&nbsp;        if (withinCoordinateBounds(nextArrayRow) &amp;&amp; withinCoordinateBounds(nextArrayColumn)) {</b>
+<b class="fc">&nbsp;          if (getProperSquare(nextArrayRow, nextArrayColumn) == &#39;_&#39;) {</b>
+<b class="fc">&nbsp;            movements++;</b>
+<b class="fc">&nbsp;          } else if (getProperSquare(nextArrayRow, nextArrayColumn) == &#39;o&#39;) {</b>
+<b class="nc">&nbsp;            nextArrayRow--;</b>
+<b class="nc">&nbsp;            nextArrayColumn++;</b>
+<b class="nc">&nbsp;            if (withinCoordinateBounds(nextArrayRow) &amp;&amp; withinCoordinateBounds(nextArrayColumn)) {</b>
+<b class="nc">&nbsp;              if (getProperSquare(nextArrayRow, nextArrayColumn) == &#39;_&#39;) {</b>
+<b class="nc">&nbsp;                movements++;</b>
+&nbsp;              }
+&nbsp;            }
+&nbsp;          }
+&nbsp;        }
+<b class="fc">&nbsp;        nextArrayRow = currentArrayRow - 1;</b>
+<b class="fc">&nbsp;        nextArrayColumn = currentArrayColumn - 1;</b>
+<b class="fc">&nbsp;        if (withinCoordinateBounds(nextArrayRow) &amp;&amp; withinCoordinateBounds(nextArrayColumn)) {</b>
+<b class="fc">&nbsp;          if (getProperSquare(nextArrayRow, nextArrayColumn) == &#39;_&#39;) {</b>
+<b class="fc">&nbsp;            movements++;</b>
+<b class="fc">&nbsp;          } else if (getProperSquare(nextArrayRow, nextArrayColumn) == &#39;o&#39;) {</b>
+<b class="nc">&nbsp;            nextArrayRow--;</b>
+<b class="nc">&nbsp;            nextArrayColumn--;</b>
+<b class="nc">&nbsp;            if (withinCoordinateBounds(nextArrayRow) &amp;&amp; withinCoordinateBounds(nextArrayColumn)) {</b>
+<b class="nc">&nbsp;              if (getProperSquare(nextArrayRow, nextArrayColumn) == &#39;_&#39;) {</b>
+<b class="nc">&nbsp;                movements++;</b>
+&nbsp;              }
+&nbsp;            }
+&nbsp;          }
+&nbsp;        }
+&nbsp;      }
+&nbsp;    } else {
+<b class="fc">&nbsp;      if (currentArrayRow == 7) {</b>
+<b class="nc">&nbsp;        return false;</b>
+&nbsp;      }
+<b class="fc">&nbsp;      nextArrayRow = currentArrayRow + 1;</b>
+<b class="fc">&nbsp;      if (withinCoordinateBounds(nextArrayRow)) {</b>
+<b class="fc">&nbsp;        nextArrayColumn = currentArrayColumn + 1;</b>
+<b class="fc">&nbsp;        if (withinCoordinateBounds(nextArrayColumn)) {</b>
+<b class="fc">&nbsp;          if (getProperSquare(nextArrayRow, nextArrayColumn) == &#39;_&#39;) {</b>
+<b class="fc">&nbsp;            movements++;</b>
+<b class="fc">&nbsp;          } else if (getProperSquare(nextArrayRow, nextArrayColumn) == &#39;x&#39;) {</b>
+<b class="fc">&nbsp;            nextArrayRow++;</b>
+<b class="fc">&nbsp;            nextArrayColumn++;</b>
+<b class="fc">&nbsp;            if (withinCoordinateBounds(nextArrayRow) &amp;&amp; withinCoordinateBounds(nextArrayColumn)) {</b>
+<b class="fc">&nbsp;              if (getProperSquare(nextArrayRow, nextArrayColumn) == &#39;_&#39;) {</b>
+<b class="fc">&nbsp;                movements++;</b>
+&nbsp;              }
+&nbsp;            }
+&nbsp;          }
+&nbsp;        }
+<b class="fc">&nbsp;        nextArrayRow = currentArrayRow + 1;</b>
+<b class="fc">&nbsp;        nextArrayColumn = currentArrayColumn - 1;</b>
+<b class="fc">&nbsp;        if (withinCoordinateBounds(nextArrayColumn)) {</b>
+<b class="fc">&nbsp;          if (getProperSquare(nextArrayRow, nextArrayColumn) == &#39;_&#39;) {</b>
+<b class="fc">&nbsp;            movements++;</b>
+<b class="fc">&nbsp;          } else if (getProperSquare(nextArrayRow, nextArrayColumn) == &#39;x&#39;) {</b>
+<b class="fc">&nbsp;            nextArrayRow++;</b>
+<b class="fc">&nbsp;            nextArrayColumn--;</b>
+<b class="fc">&nbsp;            if (withinCoordinateBounds(nextArrayRow) &amp;&amp; withinCoordinateBounds(nextArrayColumn)) {</b>
+<b class="fc">&nbsp;              if (getProperSquare(nextArrayRow, nextArrayColumn) == &#39;_&#39;) {</b>
+<b class="fc">&nbsp;                movements++;</b>
+&nbsp;              }
+&nbsp;            }
+&nbsp;          }
+&nbsp;        }
+&nbsp;      }
+&nbsp;    }
+<b class="fc">&nbsp;    return movements &gt; 0;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Determines if the piece is able to move to the destination.
+&nbsp;   *
+&nbsp;   * @param move the movement string inputted by the player.
+&nbsp;   * @return whether the piece can move to the specified destination.
+&nbsp;   */
+&nbsp;  private boolean canMove(String move) {
+<b class="nc">&nbsp;    String originalPosition = move.substring(0, 2);</b>
+<b class="nc">&nbsp;    String newPosition = move.substring(3);</b>
+<b class="nc">&nbsp;    return canMove(originalPosition, newPosition);</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Determines if the piece is able to move to the destination.
+&nbsp;   *
+&nbsp;   * @param startingPosition the piece&#39;s starting position.
+&nbsp;   * @param endingPosition   the piece&#39;s destination.
+&nbsp;   * @return if the piece is able to move to the destination.
+&nbsp;   */
+&nbsp;  private boolean canMove(String startingPosition, String endingPosition) {
+&nbsp;    //checking if the destination space is empty
+<b class="fc">&nbsp;    if (getProperSquare(convertRow(endingPosition.charAt(0)),</b>
+<b class="fc">&nbsp;            convertColumn(endingPosition.charAt(1))) != &#39;_&#39;) {</b>
+<b class="fc">&nbsp;      return false;</b>
+&nbsp;    }
+&nbsp;    //checking whose turn it is
+<b class="fc">&nbsp;    if (isTurnPlayerX) {</b>
+&nbsp;      //return true if only one diagonal move
+<b class="fc">&nbsp;      if (Math.abs(convertColumn(endingPosition.charAt(1))</b>
+<b class="fc">&nbsp;              - convertColumn(startingPosition.charAt(1))) == 1</b>
+<b class="fc">&nbsp;              &amp;&amp; convertRow(endingPosition.charAt(0))</b>
+<b class="fc">&nbsp;              - convertRow(startingPosition.charAt(0)) == -1) {</b>
+<b class="fc">&nbsp;        isTwoMoves = false;</b>
+<b class="fc">&nbsp;        return true;</b>
+&nbsp;        //if the piece moves 2 spaces, continue checking
+<b class="fc">&nbsp;      } else if (Math.abs(convertColumn(endingPosition.charAt(1))</b>
+<b class="fc">&nbsp;              - convertColumn(startingPosition.charAt(1))) == 2</b>
+<b class="fc">&nbsp;              &amp;&amp; convertRow(endingPosition.charAt(0))</b>
+<b class="fc">&nbsp;              - convertRow(startingPosition.charAt(0)) == -2) {</b>
+&nbsp;        //if the piece in between is not an enemy piece, return false
+<b class="fc">&nbsp;        int intermediateRow = (convertRow(startingPosition.charAt(0))</b>
+<b class="fc">&nbsp;                + convertRow(endingPosition.charAt(0))) / 2;</b>
+<b class="fc">&nbsp;        int intermediateCol = (convertColumn(startingPosition.charAt(1))</b>
+<b class="fc">&nbsp;                + convertColumn(endingPosition.charAt(1))) / 2;</b>
+<b class="fc">&nbsp;        if (getProperSquare(intermediateRow, intermediateCol) != &#39;o&#39;) {</b>
+<b class="nc">&nbsp;          return false;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        isTwoMoves = true;</b>
+<b class="fc">&nbsp;        return true;</b>
+&nbsp;      }
+&nbsp;    } else {
+&nbsp;      //return true if only one diagonal move
+<b class="fc">&nbsp;      if (Math.abs(convertColumn(endingPosition.charAt(1))</b>
+<b class="fc">&nbsp;              - convertColumn(startingPosition.charAt(1))) == 1</b>
+<b class="fc">&nbsp;              &amp;&amp; convertRow(endingPosition.charAt(0))</b>
+<b class="fc">&nbsp;              - convertRow(startingPosition.charAt(0)) == 1) {</b>
+<b class="fc">&nbsp;        isTwoMoves = false;</b>
+<b class="fc">&nbsp;        return true;</b>
+<b class="fc">&nbsp;      } else if (Math.abs(convertColumn(endingPosition.charAt(1))</b>
+<b class="fc">&nbsp;              - convertColumn(startingPosition.charAt(1))) == 2</b>
+<b class="fc">&nbsp;              &amp;&amp; convertRow(endingPosition.charAt(0))</b>
+<b class="fc">&nbsp;              - convertRow(startingPosition.charAt(0)) == 2) {</b>
+<b class="fc">&nbsp;        int intermediateRow = (convertRow(startingPosition.charAt(0))</b>
+<b class="fc">&nbsp;                + convertRow(endingPosition.charAt(0))) / 2;</b>
+<b class="fc">&nbsp;        int intermediateCol = (convertColumn(startingPosition.charAt(1))</b>
+<b class="fc">&nbsp;                + convertColumn(endingPosition.charAt(1))) / 2;</b>
+<b class="fc">&nbsp;        if (getProperSquare(intermediateRow, intermediateCol) != &#39;x&#39;) {</b>
+<b class="fc">&nbsp;          return false;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        isTwoMoves = true;</b>
+<b class="fc">&nbsp;        return true;</b>
+&nbsp;      }
+&nbsp;    }
+<b class="nc">&nbsp;    return false;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Determines if the input given by the player is valid to be read.
+&nbsp;   *
+&nbsp;   * @param move the input given by the player, typically in &quot;3a-4b&quot; format
+&nbsp;   * @return if the given input is within board bounds
+&nbsp;   */
+&nbsp;  private boolean isValidInput(String move) throws Exception {
+<b class="fc">&nbsp;    boolean lengthValid = move.length() == 5;</b>
+&nbsp;    //making sure the length is 5
+<b class="fc">&nbsp;    if (lengthValid) {</b>
+<b class="fc">&nbsp;      boolean originalRowValid = convertRow(move.charAt(0)) &gt;= 0 &amp;&amp; convertRow(move.charAt(0)) &lt;= 7;</b>
+<b class="fc">&nbsp;      boolean originalColumnValid = convertColumn(move.charAt(1)) &gt;= 0</b>
+<b class="fc">&nbsp;              &amp;&amp; convertColumn(move.charAt(1)) &lt;= 7;</b>
+<b class="fc">&nbsp;      boolean hasDash = move.charAt(2) == &#39;-&#39;;</b>
+<b class="fc">&nbsp;      boolean newRowValid = convertRow(move.charAt(3)) &gt;= 0 &amp;&amp; convertRow(move.charAt(3)) &lt;= 7;</b>
+<b class="fc">&nbsp;      boolean newColumnValid = convertColumn(move.charAt(4)) &gt;= 0</b>
+<b class="fc">&nbsp;              &amp;&amp; convertColumn(move.charAt(4)) &lt;= 7;</b>
+&nbsp;      //returns if the
+<b class="fc">&nbsp;      return (originalRowValid &amp;&amp; originalColumnValid &amp;&amp; hasDash</b>
+&nbsp;              &amp;&amp; newRowValid &amp;&amp; newColumnValid);
+&nbsp;    }
+<b class="nc">&nbsp;    throw new Exception(&quot;Invalid input.&quot;);</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Finds the piece expected at the given position and returns it.
+&nbsp;   *
+&nbsp;   * @param checkerPos expected position of the checker piece.
+&nbsp;   * @param isPieceX   whether the piece is an x or o piece.
+&nbsp;   * @return the piece that is found in that position. Returns null if no piece was found.
+&nbsp;   */
+&nbsp;  private Checker findPiece(String checkerPos, boolean isPieceX) {
+<b class="fc">&nbsp;    Checker checkerFound = null;</b>
+&nbsp;    //ensures the input given is a valid input
+<b class="fc">&nbsp;    if (checkerPos.length() != 2) {</b>
+<b class="nc">&nbsp;      return null;</b>
+&nbsp;    }
+<b class="fc">&nbsp;    if (isPieceX) {</b>
+<b class="fc">&nbsp;      for (Checker piece : xpieces) {</b>
+<b class="fc">&nbsp;        if (piece.getStringPos().equals(checkerPos)) {</b>
+<b class="fc">&nbsp;          checkerFound = piece;</b>
+&nbsp;        }
+&nbsp;      }
+&nbsp;    } else {
+<b class="fc">&nbsp;      for (Checker piece : opieces) {</b>
+<b class="fc">&nbsp;        if (piece.getStringPos().equals(checkerPos)) {</b>
+<b class="fc">&nbsp;          checkerFound = piece;</b>
+&nbsp;        }
+&nbsp;      }
+&nbsp;    }
+<b class="fc">&nbsp;    return checkerFound;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  /**
+&nbsp;   * converts the column from its array column number to the board column coordinate.
+&nbsp;   *
+&nbsp;   * @param letter the board column coordinate.
+&nbsp;   * @return the associating array column number.
+&nbsp;   */
+&nbsp;  private int convertColumn(char letter) {
+<b class="fc">&nbsp;    switch (letter) {</b>
+&nbsp;      case &#39;a&#39;:
+<b class="fc">&nbsp;        return 0;</b>
+&nbsp;      case &#39;b&#39;:
+<b class="fc">&nbsp;        return 1;</b>
+&nbsp;      case &#39;c&#39;:
+<b class="fc">&nbsp;        return 2;</b>
+&nbsp;      case &#39;d&#39;:
+<b class="fc">&nbsp;        return 3;</b>
+&nbsp;      case &#39;e&#39;:
+<b class="fc">&nbsp;        return 4;</b>
+&nbsp;      case &#39;f&#39;:
+<b class="fc">&nbsp;        return 5;</b>
+&nbsp;      case &#39;g&#39;:
+<b class="fc">&nbsp;        return 6;</b>
+&nbsp;      case &#39;h&#39;:
+<b class="fc">&nbsp;        return 7;</b>
+&nbsp;      default:
+<b class="fc">&nbsp;        return -1;</b>
+&nbsp;    }
+&nbsp;  }
+&nbsp;
+&nbsp;  /**
+&nbsp;   * converts the column from its array column number to the board column coordinate.
+&nbsp;   *
+&nbsp;   * @param coord the array column number.
+&nbsp;   * @return the associating board column coordinate.
+&nbsp;   */
+&nbsp;  private char convertColumn(int coord) {
+<b class="fc">&nbsp;    switch (coord) {</b>
+&nbsp;      case 0:
+<b class="fc">&nbsp;        return &#39;a&#39;;</b>
+&nbsp;      case 1:
+<b class="fc">&nbsp;        return &#39;b&#39;;</b>
+&nbsp;      case 2:
+<b class="fc">&nbsp;        return &#39;c&#39;;</b>
+&nbsp;      case 3:
+<b class="fc">&nbsp;        return &#39;d&#39;;</b>
+&nbsp;      case 4:
+<b class="fc">&nbsp;        return &#39;e&#39;;</b>
+&nbsp;      case 5:
+<b class="fc">&nbsp;        return &#39;f&#39;;</b>
+&nbsp;      case 6:
+<b class="fc">&nbsp;        return &#39;g&#39;;</b>
+&nbsp;      case 7:
+<b class="fc">&nbsp;        return &#39;h&#39;;</b>
+&nbsp;      default:
+<b class="nc">&nbsp;        return &#39;_&#39;;</b>
+&nbsp;    }
+&nbsp;  }
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Converts the row from an array to a coordinate number as it would appear on the board.
+&nbsp;   *
+&nbsp;   * @param arrayRow the row number from the board array.
+&nbsp;   * @return the associating coordinate number for the board, in character form.
+&nbsp;   */
+&nbsp;  private char convertRow(int arrayRow) {
+<b class="fc">&nbsp;    switch (arrayRow) {</b>
+&nbsp;      case 0:
+<b class="fc">&nbsp;        return &#39;8&#39;;</b>
+&nbsp;      case 1:
+<b class="nc">&nbsp;        return &#39;7&#39;;</b>
+&nbsp;      case 2:
+<b class="fc">&nbsp;        return &#39;6&#39;;</b>
+&nbsp;      case 3:
+<b class="fc">&nbsp;        return &#39;5&#39;;</b>
+&nbsp;      case 4:
+<b class="fc">&nbsp;        return &#39;4&#39;;</b>
+&nbsp;      case 5:
+<b class="nc">&nbsp;        return &#39;3&#39;;</b>
+&nbsp;      case 6:
+<b class="fc">&nbsp;        return &#39;2&#39;;</b>
+&nbsp;      case 7:
+<b class="fc">&nbsp;        return &#39;1&#39;;</b>
+&nbsp;      default:
+<b class="nc">&nbsp;        return &#39;_&#39;;</b>
+&nbsp;    }
+&nbsp;  }
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Converts the coordinate number as it would appear on the board to an array row.
+&nbsp;   *
+&nbsp;   * @param boardCoordinate the coordinate number for the board, in character form.
+&nbsp;   * @return the associating row number from the board array.
+&nbsp;   */
+&nbsp;  private int convertRow(char boardCoordinate) {
+<b class="fc">&nbsp;    switch (boardCoordinate) {</b>
+&nbsp;      case &#39;1&#39;:
+<b class="fc">&nbsp;        return 7;</b>
+&nbsp;      case &#39;2&#39;:
+<b class="fc">&nbsp;        return 6;</b>
+&nbsp;      case &#39;3&#39;:
+<b class="fc">&nbsp;        return 5;</b>
+&nbsp;      case &#39;4&#39;:
+<b class="fc">&nbsp;        return 4;</b>
+&nbsp;      case &#39;5&#39;:
+<b class="fc">&nbsp;        return 3;</b>
+&nbsp;      case &#39;6&#39;:
+<b class="fc">&nbsp;        return 2;</b>
+&nbsp;      case &#39;7&#39;:
+<b class="fc">&nbsp;        return 1;</b>
+&nbsp;      case &#39;8&#39;:
+<b class="fc">&nbsp;        return 0;</b>
+&nbsp;      default:
+<b class="nc">&nbsp;        return &#39;_&#39;;</b>
+&nbsp;    }
+&nbsp;  }
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Handles the system output explaining whose turn it is.
+&nbsp;   */
+&nbsp;  private void stringTurn() {
+<b class="fc">&nbsp;    if (isTurnPlayerX) {</b>
+<b class="fc">&nbsp;      System.out.println(&quot;Player X - your turn.&quot;);</b>
+&nbsp;    } else {
+<b class="fc">&nbsp;      System.out.println(&quot;Player O - your turn.&quot;);</b>
+&nbsp;    }
+<b class="fc">&nbsp;    System.out.println(&quot;Choose a cell position of piece to be&quot;</b>
+&nbsp;            + &quot; moved and the new position. e.g., 3a-4b&quot;);
+&nbsp;  }
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Indicates to the game that it is over. Used to do things like display the winner.
+&nbsp;   */
+&nbsp;  @Override
+&nbsp;  public void onEnd() {
+<b class="fc">&nbsp;    char winner = this.getWinningPlayer();</b>
+<b class="fc">&nbsp;    winner = (char) (winner - 32);</b>
+<b class="fc">&nbsp;    System.out.println(&quot;Player &quot; + winner + &quot; Won the Game&quot;);</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  public Checker[] getComputerPieces() {
+<b class="fc">&nbsp;    return opieces;</b>
+&nbsp;  }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-04-27 21:13</div>
+</div>
+</body>
+</html>

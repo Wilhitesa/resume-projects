@@ -1,0 +1,132 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > CheckersGame</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">edu.ser216.checkers.core</a>
+</div>
+
+<h1>Coverage Summary for Class: CheckersGame (edu.ser216.checkers.core)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">CheckersGame</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package edu.ser216.checkers.core;
+&nbsp;
+&nbsp;/**
+&nbsp; * An interface that abstractly defines a checkers game board with logic.
+&nbsp; *
+&nbsp; * @author Acuna
+&nbsp; * @version 1.0
+&nbsp; */
+&nbsp;public interface CheckersGame {
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Returns the square at a specific location on the game board.
+&nbsp;   * &lt;p&gt;
+&nbsp;   * For example, given the following board:
+&nbsp;   * 8|_|o|_|o|_|o|_|o|
+&nbsp;   * 7|o|_|o|_|o|_|o|_|
+&nbsp;   * 6|_|o|_|o|_|o|_|o|
+&nbsp;   * 5|_|_|_|_|_|_|_|_|
+&nbsp;   * 4|_|_|_|_|_|_|_|_|
+&nbsp;   * 3|x|_|x|_|x|_|x|_|
+&nbsp;   * 2|_|x|_|x|_|x|_|x|
+&nbsp;   * 1|x|_|x|_|x|_|x|_|
+&nbsp;   * a b c d e f g h
+&nbsp;   * getSquare(0,0) would return &#39;x&#39;.
+&nbsp;   *
+&nbsp;   * @param row    Row.
+&nbsp;   * @param column Column.
+&nbsp;   * @return Contents of game board at position.
+&nbsp;   */
+&nbsp;  char getSquare(int row, int column);
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Sets the contents (&#39;x&#39;, &#39;o&#39;, or &#39;_&#39;) of the game board.
+&nbsp;   *
+&nbsp;   * @param row     Row.
+&nbsp;   * @param column  Column.
+&nbsp;   * @param content Contents.
+&nbsp;   */
+&nbsp;  void setSquare(int row, int column, char content);
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Returns &#39;x&#39; if player X  has won, &#39;o&#39; if player O has won, and &#39;_&#39; otherwise. May be called
+&nbsp;   * at any time.
+&nbsp;   *
+&nbsp;   * @return A character representing the winner.
+&nbsp;   */
+&nbsp;  char getWinningPlayer();
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Indicates to the game that it is the next player&#39;s turn.
+&nbsp;   */
+&nbsp;  void nextTurn();
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Indicates to the game that a players turn should occur (i.e., read a move and act upon it).
+&nbsp;   * To read input from the keyboard, this method must make use of the Scanner object passed
+&nbsp;   * into the constructor of this CheckersGame. Valid inputs must look like &quot;3a-4b&quot;.
+&nbsp;   */
+&nbsp;  void doTurn();
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Indicates to the game that it is over. Used to do things like display the winner.
+&nbsp;   */
+&nbsp;  void onEnd();
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-04-27 21:13</div>
+</div>
+</body>
+</html>

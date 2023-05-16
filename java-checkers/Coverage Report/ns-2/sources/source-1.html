@@ -1,0 +1,231 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > CheckersGUI</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">edu.ser216.checkers.ui</a>
+</div>
+
+<h1>Coverage Summary for Class: CheckersGUI (edu.ser216.checkers.ui)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CheckersGUI</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/63)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package edu.ser216.checkers.ui;
+&nbsp;
+&nbsp;import edu.ser216.checkers.core.CheckersComputerPlayer;
+&nbsp;import edu.ser216.checkers.core.CheckersGameLogic;
+&nbsp;import javafx.application.Application;
+&nbsp;import javafx.geometry.Pos;
+&nbsp;import javafx.scene.Scene;
+&nbsp;import javafx.scene.control.Label;
+&nbsp;import javafx.scene.layout.GridPane;
+&nbsp;import javafx.stage.Stage;
+&nbsp;
+&nbsp;/**
+&nbsp; * The class for the Checkers game UI.
+&nbsp; *
+&nbsp; * @author samuelwilhite
+&nbsp; * @version 1.0
+&nbsp; */
+<b class="nc">&nbsp;public class CheckersGUI extends Application {</b>
+&nbsp;
+<b class="nc">&nbsp;  static CheckersGameLogic gameLogic = new CheckersGameLogic();</b>
+&nbsp;  static PieceGrid boardGrid;
+<b class="nc">&nbsp;  static boolean hasOne = false;</b>
+<b class="nc">&nbsp;  static String firstCoord = &quot;&quot;;</b>
+<b class="nc">&nbsp;  static String secondCoord = &quot;&quot;;</b>
+<b class="nc">&nbsp;  static CheckersComputerPlayer guiComputer = new CheckersComputerPlayer(gameLogic);</b>
+<b class="nc">&nbsp;  private static boolean hasComputerPlayer = false;</b>
+<b class="nc">&nbsp;  private static boolean alreadyLabeled = true;</b>
+&nbsp;  static Label statusLabel;
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Simplified function call to create a JavaFX window.
+&nbsp;   *
+&nbsp;   * @param args        args to be taken from main.
+&nbsp;   * @param hasComputer indicates whether the player requests a computer opponent.
+&nbsp;   */
+&nbsp;  public static void go(String[] args, boolean hasComputer) {
+<b class="nc">&nbsp;    hasComputerPlayer = hasComputer;</b>
+<b class="nc">&nbsp;    launch(args);</b>
+&nbsp;  }
+&nbsp;
+&nbsp;
+&nbsp;  /**
+&nbsp;   * The starting function for the JavaFX gui to be built.
+&nbsp;   *
+&nbsp;   * @param stage The window to place all JavaFX components on.
+&nbsp;   */
+&nbsp;  @Override
+&nbsp;  public void start(Stage stage) {
+<b class="nc">&nbsp;    GridPane mainGrid = new GridPane();</b>
+<b class="nc">&nbsp;    mainGrid.setAlignment(Pos.CENTER);</b>
+<b class="nc">&nbsp;    statusLabel = new Label(&quot;Player X, start game.&quot;);</b>
+<b class="nc">&nbsp;    statusLabel.setAlignment(Pos.CENTER);</b>
+<b class="nc">&nbsp;    GridPane numberGrid = new GridPane();</b>
+<b class="nc">&nbsp;    numberGrid.setAlignment(Pos.CENTER);</b>
+<b class="nc">&nbsp;    for (int i = 0; i &lt; 8; i++) {</b>
+<b class="nc">&nbsp;      numberGrid.add(new Label((8 - i) + &quot;\n&quot;), 0, i);</b>
+&nbsp;    }
+<b class="nc">&nbsp;    GridPane letterGrid = new GridPane();</b>
+<b class="nc">&nbsp;    letterGrid.setAlignment(Pos.CENTER);</b>
+<b class="nc">&nbsp;    for (int i = 0; i &lt; 8; i++) {</b>
+<b class="nc">&nbsp;      letterGrid.add(new Label((char) (i + &#39;a&#39;) + &quot;    &quot;), i, 0);</b>
+&nbsp;    }
+<b class="nc">&nbsp;    boardGrid = new PieceGrid(gameLogic, this);</b>
+<b class="nc">&nbsp;    mainGrid.add(statusLabel, 1, 0);</b>
+<b class="nc">&nbsp;    mainGrid.add(boardGrid, 1, 1);</b>
+<b class="nc">&nbsp;    mainGrid.add(numberGrid, 0, 1);</b>
+<b class="nc">&nbsp;    mainGrid.add(letterGrid, 1, 2);</b>
+<b class="nc">&nbsp;    Scene mainScene = new Scene(mainGrid);</b>
+<b class="nc">&nbsp;    stage.setScene(mainScene);</b>
+<b class="nc">&nbsp;    stage.setTitle(&quot;Checkers&quot;);</b>
+<b class="nc">&nbsp;    stage.show();</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  /** Inputs a position on the checkerboard and handles it as a move in the game.
+&nbsp;   *
+&nbsp;   * @param position a position on the checkerboard, such as &quot;4a&quot; or &quot;3b&quot;
+&nbsp;   */
+&nbsp;  public void giveGUIPosition(String position) {
+&nbsp;    //TODO: move win functionality to the bottom, create and manage a label for the current position
+<b class="nc">&nbsp;    if (gameLogic.getWinningPlayer() == &#39;_&#39;) {</b>
+<b class="nc">&nbsp;      if (!hasOne) {</b>
+<b class="nc">&nbsp;        firstCoord = position;</b>
+<b class="nc">&nbsp;        hasOne = true;</b>
+<b class="nc">&nbsp;        statusLabel.setText(statusLabel.getText() + &quot;    (&quot; + position + &quot;- )&quot;);</b>
+&nbsp;      } else {
+<b class="nc">&nbsp;        secondCoord = position;</b>
+<b class="nc">&nbsp;        String move = firstCoord + &quot;-&quot; + secondCoord;</b>
+<b class="nc">&nbsp;        if (gameLogic.isValidMove(move)) {</b>
+<b class="nc">&nbsp;          gameLogic.makeTurn(move);</b>
+<b class="nc">&nbsp;          if (!hasComputerPlayer) {</b>
+<b class="nc">&nbsp;            gameLogic.nextTurn();</b>
+&nbsp;          } else {
+<b class="nc">&nbsp;            gameLogic.nextTurn();</b>
+<b class="nc">&nbsp;            guiComputer.generateMove();</b>
+&nbsp;          }
+<b class="nc">&nbsp;          alreadyLabeled = false;</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;          if (gameLogic.isTurnPlayerX()) {</b>
+<b class="nc">&nbsp;            statusLabel.setText(&quot;Player X, try again.&quot;);</b>
+&nbsp;          } else {
+<b class="nc">&nbsp;            statusLabel.setText(&quot;Player O, try again.&quot;);</b>
+&nbsp;          }
+&nbsp;        }
+<b class="nc">&nbsp;        boardGrid.updateGrid();</b>
+<b class="nc">&nbsp;        hasOne = false;</b>
+&nbsp;      }
+<b class="nc">&nbsp;      if (gameLogic.isTurnPlayerX() &amp;&amp; !alreadyLabeled) {</b>
+<b class="nc">&nbsp;        statusLabel.setText(&quot;Player X, your turn.&quot;);</b>
+<b class="nc">&nbsp;        alreadyLabeled = true;</b>
+<b class="nc">&nbsp;      } else if (!gameLogic.isTurnPlayerX() &amp;&amp; !alreadyLabeled) {</b>
+<b class="nc">&nbsp;        statusLabel.setText(&quot;Player O, your turn.&quot;);</b>
+<b class="nc">&nbsp;        alreadyLabeled = true;</b>
+&nbsp;      }
+&nbsp;    }
+<b class="nc">&nbsp;    winCheck();</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  private void winCheck() {
+<b class="nc">&nbsp;    if (gameLogic.getWinningPlayer() == &#39;x&#39;) {</b>
+<b class="nc">&nbsp;      statusLabel.setText(&quot;Player X has won the game!&quot;);</b>
+<b class="nc">&nbsp;    } else if (gameLogic.getWinningPlayer() == &#39;o&#39;) {</b>
+<b class="nc">&nbsp;      statusLabel.setText(&quot;Player O has won the game!&quot;);</b>
+<b class="nc">&nbsp;    } else if (gameLogic.getWinningPlayer() != &#39;_&#39;) {</b>
+<b class="nc">&nbsp;      statusLabel.setText(&quot;Game was a tie!&quot;);</b>
+&nbsp;    }
+&nbsp;  }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-04-27 21:13</div>
+</div>
+</body>
+</html>

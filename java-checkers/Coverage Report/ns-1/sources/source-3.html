@@ -1,0 +1,170 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > CheckersDriver</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">edu.ser216.checkers.core</a>
+</div>
+
+<h1>Coverage Summary for Class: CheckersDriver (edu.ser216.checkers.core)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CheckersDriver</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/38)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package edu.ser216.checkers.core;
+&nbsp;
+&nbsp;import edu.ser216.checkers.ui.CheckersGUI;
+&nbsp;import edu.ser216.checkers.ui.CheckersTextConsole;
+&nbsp;import edu.ser216.checkers.ui.CheckersViewer;
+&nbsp;import java.util.Scanner;
+&nbsp;
+&nbsp;/**
+&nbsp; * This class provides the entry to run the checkers game. It also provides the main game play loop
+&nbsp; * that calls methods from the two user-created classes (CheckersGameLogic and CheckersTextConsole).
+&nbsp; * &lt;p&gt;
+&nbsp; * The contents of this file should not be changed.
+&nbsp; *
+&nbsp; * @author Wilhite, Acuna, Baron
+&nbsp; * @version 2.0
+&nbsp; */
+<b class="nc">&nbsp;public class CheckersDriver {</b>
+&nbsp;  public static void main(String[] args) {
+&nbsp;    //initialize game components, computer player
+<b class="nc">&nbsp;    Scanner scan = new Scanner(System.in);</b>
+<b class="nc">&nbsp;    CheckersGame game = new CheckersGameLogic(scan);</b>
+<b class="nc">&nbsp;    CheckersViewer console = new CheckersTextConsole();</b>
+<b class="nc">&nbsp;    CheckersComputerPlayer checkersComputerPlayer = new CheckersComputerPlayer((CheckersGameLogic) game);</b>
+&nbsp;
+&nbsp;    //determine if the player wants to play with a computer
+<b class="nc">&nbsp;    boolean modeChosen = false;</b>
+<b class="nc">&nbsp;    boolean computerChosen = false;</b>
+<b class="nc">&nbsp;    while (!modeChosen) {</b>
+<b class="nc">&nbsp;      System.out.println(&quot;Begin Game. Enter ‘P’ if you want to play against another player; enter ‘C’ to play against computer.&quot;);</b>
+<b class="nc">&nbsp;      String choice = scan.nextLine();</b>
+<b class="nc">&nbsp;      if (choice.equalsIgnoreCase(&quot;P&quot;)) {</b>
+<b class="nc">&nbsp;        modeChosen = true;</b>
+<b class="nc">&nbsp;        computerChosen = false;</b>
+<b class="nc">&nbsp;      } else if (choice.equalsIgnoreCase(&quot;C&quot;)) {</b>
+<b class="nc">&nbsp;        modeChosen = true;</b>
+<b class="nc">&nbsp;        computerChosen = true;</b>
+<b class="nc">&nbsp;        System.out.println(&quot;Start game against computer. You are Player X and Computer is Player O.&quot;);</b>
+&nbsp;      }
+<b class="nc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    //determine if the player wants to play with the GUI.
+<b class="nc">&nbsp;    modeChosen = false;</b>
+<b class="nc">&nbsp;    boolean GUIChosen = false;</b>
+<b class="nc">&nbsp;    while (!modeChosen) {</b>
+<b class="nc">&nbsp;      System.out.println(&quot;Would you like to play with the GUI? (Y/N)&quot;);</b>
+<b class="nc">&nbsp;      String choice = scan.nextLine();</b>
+<b class="nc">&nbsp;      if (choice.equalsIgnoreCase(&quot;Y&quot;)) {</b>
+<b class="nc">&nbsp;        modeChosen = true;</b>
+<b class="nc">&nbsp;        CheckersGUI.go(args, computerChosen);</b>
+<b class="nc">&nbsp;      } else if (choice.equalsIgnoreCase(&quot;N&quot;)) {</b>
+<b class="nc">&nbsp;        while (game.getWinningPlayer() == &#39;_&#39;) {</b>
+<b class="nc">&nbsp;          System.out.println(console.printBoard(game));</b>
+<b class="nc">&nbsp;          game.doTurn();</b>
+<b class="nc">&nbsp;          game.nextTurn();</b>
+<b class="nc">&nbsp;          if (computerChosen) {</b>
+&nbsp;            try {
+<b class="nc">&nbsp;              checkersComputerPlayer.generateMove();</b>
+<b class="nc">&nbsp;            } catch (RuntimeException e) {</b>
+<b class="nc">&nbsp;              System.out.println(&quot;Computer was unable to find a move.&quot;);</b>
+<b class="nc">&nbsp;            }</b>
+&nbsp;          }
+&nbsp;        }
+<b class="nc">&nbsp;        game.onEnd();</b>
+&nbsp;      }
+<b class="nc">&nbsp;    }</b>
+&nbsp;  }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-04-27 21:13</div>
+</div>
+</body>
+</html>

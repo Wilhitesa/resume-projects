@@ -1,0 +1,194 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > PieceGrid</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">edu.ser216.checkers.ui</a>
+</div>
+
+<h1>Coverage Summary for Class: PieceGrid (edu.ser216.checkers.ui)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">PieceGrid</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/19)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">PieceGrid$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/22)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package edu.ser216.checkers.ui;
+&nbsp;
+&nbsp;import edu.ser216.checkers.core.CheckersGameLogic;
+&nbsp;import java.util.ArrayList;
+&nbsp;import javafx.event.ActionEvent;
+&nbsp;import javafx.event.EventHandler;
+&nbsp;import javafx.geometry.Insets;
+&nbsp;import javafx.geometry.Pos;
+&nbsp;import javafx.scene.layout.GridPane;
+&nbsp;
+&nbsp;/** Creates a grid of buttons that act as checker squares.
+&nbsp; *  Squares are able to update according to the game.
+&nbsp; *
+&nbsp; */
+&nbsp;public class PieceGrid extends GridPane {
+&nbsp;
+&nbsp;  ArrayList&lt;PieceButton&gt; pieceButtons;
+&nbsp;  CheckersGameLogic game;
+&nbsp;
+&nbsp;
+&nbsp;  /** Creates a grid of pieces that are able to update.
+&nbsp;   *
+&nbsp;   * @param game The game the grid of pieces will reference from.
+&nbsp;   * @param gui The gui the program will call game processing from.
+&nbsp;   */
+&nbsp;  public PieceGrid(CheckersGameLogic game, CheckersGUI gui) {
+<b class="nc">&nbsp;    super();</b>
+<b class="nc">&nbsp;    setMinSize(100, 100);</b>
+<b class="nc">&nbsp;    setPadding(new Insets(10, 10, 10, 10));</b>
+<b class="nc">&nbsp;    setAlignment(Pos.CENTER);</b>
+<b class="nc">&nbsp;    pieceButtons = new ArrayList&lt;PieceButton&gt;();</b>
+<b class="nc">&nbsp;    this.game = game;</b>
+&nbsp;    //creates the event handler for all piece buttons.
+<b class="nc">&nbsp;    EventHandler&lt;ActionEvent&gt; event = new EventHandler&lt;ActionEvent&gt;() {</b>
+&nbsp;      public void handle(ActionEvent e) {
+<b class="nc">&nbsp;        PieceButton source = (PieceButton) e.getSource();</b>
+&nbsp;        //System.out.println(source.getPosition());
+<b class="nc">&nbsp;        gui.giveGUIPosition(source.getPosition());</b>
+&nbsp;      }
+&nbsp;    };
+&nbsp;
+<b class="nc">&nbsp;    for (int i = 0; i &lt; 8; i++) {</b>
+<b class="nc">&nbsp;      for (int g = 0; g &lt; 8; g++) {</b>
+<b class="nc">&nbsp;        PieceButton newButton =</b>
+<b class="nc">&nbsp;                new PieceButton(String.valueOf((char) (&#39;8&#39; - i)) + (char) (&#39;a&#39; + g), &quot;-&quot;);</b>
+<b class="nc">&nbsp;        pieceButtons.add(newButton);</b>
+<b class="nc">&nbsp;        add(newButton, g, i);</b>
+<b class="nc">&nbsp;        newButton.setOnAction(event);</b>
+&nbsp;      }
+&nbsp;    }
+<b class="nc">&nbsp;    updateGrid();</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  /** Updates every label on the board to display current piece positions.
+&nbsp;   *
+&nbsp;   */
+&nbsp;  public void updateGrid() {
+<b class="nc">&nbsp;    char[][] board = game.getBoard();</b>
+<b class="nc">&nbsp;    for (int i = 0; i &lt; 8; i++) {</b>
+<b class="nc">&nbsp;      for (int g = 0; g &lt; 8; g++) {</b>
+<b class="nc">&nbsp;        pieceButtons.get((i * 8) + g).setText(String.valueOf(board[i][g]));</b>
+&nbsp;      }
+&nbsp;    }
+&nbsp;  }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-04-27 21:13</div>
+</div>
+</body>
+</html>

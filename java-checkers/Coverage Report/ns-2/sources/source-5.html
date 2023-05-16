@@ -1,0 +1,100 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > CheckersViewer</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">edu.ser216.checkers.ui</a>
+</div>
+
+<h1>Coverage Summary for Class: CheckersViewer (edu.ser216.checkers.ui)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">CheckersViewer</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package edu.ser216.checkers.ui;
+&nbsp;
+&nbsp;import edu.ser216.checkers.core.CheckersGame;
+&nbsp;
+&nbsp;/**
+&nbsp; * An interface that defines a class to display the current board state of a CheckersGame object.
+&nbsp; *
+&nbsp; * @author Acuna, Baron
+&nbsp; * @version 1.0
+&nbsp; */
+&nbsp;public interface CheckersViewer {
+&nbsp;  /**
+&nbsp;   * Returns string representation of the board in a CheckersGame. A &#39;o&#39; will represent a piece
+&nbsp;   * for player O, and an &#39;x&#39; will represent a piece for player X. A &#39;_&#39; will represent an
+&nbsp;   * unoccupied space. The axis will be labeled with numbers and letters as shown below, a
+&nbsp;   * vertical bar will separate columns.
+&nbsp;   * &lt;p&gt;
+&nbsp;   * For example:
+&nbsp;   * 8|_|o|_|o|_|o|_|o|
+&nbsp;   * 7|o|_|o|_|o|_|o|_|
+&nbsp;   * 6|_|o|_|o|_|o|_|o|
+&nbsp;   * 5|_|_|_|_|_|_|_|_|
+&nbsp;   * 4|_|_|_|_|_|_|_|_|
+&nbsp;   * 3|x|_|x|_|x|_|x|_|
+&nbsp;   * 2|_|x|_|x|_|x|_|x|
+&nbsp;   * 1|x|_|x|_|x|_|x|_|
+&nbsp;   * a b c d e f g h
+&nbsp;   *
+&nbsp;   * @param game Game to visualize.
+&nbsp;   * @return String representation of board.
+&nbsp;   */
+&nbsp;  String printBoard(final CheckersGame game);
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-04-27 21:13</div>
+</div>
+</body>
+</html>
